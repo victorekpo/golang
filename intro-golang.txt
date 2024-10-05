@@ -1,7 +1,24 @@
-package main
 
-import "fmt"
+Our first program will print the classic “hello world” message. Here’s the full source code.
 
-func main() {
-  fmt.Println("Hi there!")
-} 
+
+To run the program, put the code in hello-world.go and use go run.
+
+Sometimes we’ll want to build our programs into binaries. We can do this using go build.
+
+We can then execute the built binary directly.
+
+
+Go has various value types including strings, integers, floats, booleans, etc. Here are a few basic examples.
+Strings, which can be added together with +.
+Integers and floats.
+Booleans, with boolean operators as you’d expect.
+
+
+In Go, variables are explicitly declared and used by the compiler to e.g. check type-correctness of function calls.
+var declares 1 or more variables.
+You can declare multiple variables at once.
+Go will infer the type of initialized variables.
+Variables declared without a corresponding initialization are zero-valued. For example, the zero value for an int is 0.
+The := syntax is shorthand for declaring and initializing a variable, e.g. for var f string = "apple" in this case. This syntax is only available inside functions. f := "apple"
+
