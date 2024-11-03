@@ -24,3 +24,5 @@ vendor/
 # Go build artifacts
 bin/
 tmp/
+
+.idea/
