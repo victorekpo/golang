@@ -34,12 +34,14 @@ func main() {
 	// fmt.Scan is used for input from the user, similar to readline in node.js
 
 	// Get the user input
+	fmt.Print("\n\nEnter your first name: ")
 	_, userNameErr := fmt.Scan(&userName)
 	checkError(userNameErr, "Error while getting userName:")
 
+	fmt.Print("Enter the number of tickets: ")
 	_, userTicketsErr := fmt.Scan(&userTickets)
 	checkError(userTicketsErr, "Error while getting userTickets:")
 
 	// Print the user input
-	fmt.Printf("User %v booked %v tickets.\n", userName, userTickets)
+	fmt.Printf("\n\nUser %v booked %v tickets.\n", userName, userTickets)
 }
