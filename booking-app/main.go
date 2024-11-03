@@ -73,4 +73,6 @@ func main() {
 	var bookings [50]string
 	bookings[0] = userName
 
+	fmt.Printf("The whole array: %v\n", bookings)
+
 }

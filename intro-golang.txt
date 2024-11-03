@@ -188,17 +188,110 @@ Data Types
     -complex64
     -complex128
 
+-Arrays & Slices
+ In Go, you cannot directly push to an array since arrays have a fixed size. Instead, you can use a slice, which is a dynamically-sized array. Here is how you can modify your code to use a slice and append elements to it
 
-"fmt" package
--Different functions for:
-  -Formatted Input and Output (I/O)
-    -Print Messages
-      -Println
-      -Printf
-       -Print
-    -Collect User Input
-        -Scanln
-        -Scanf
-        -Scan
-    -Write into a File
-    -Read from a File
+-Maps
+
+-Structs
+
+-Booleans
+
+More Topics
+-Pointers
+
+-Functions
+
+-Interfaces
+
+-Errors
+
+-Constants
+
+-Variables
+
+-Loops
+
+-Conditionals
+
+-Defer
+
+-Panic
+
+-Recover
+
+-Go Routines
+
+-Channels
+
+-Select
+
+-Range
+
+-Timeouts
+
+-Tickers
+
+-Worker Pools
+
+-WaitGroups
+
+-Mutexes
+
+-Atomic Counters
+
+-Context
+
+-Testing
+
+-Reflection
+
+-File I/O
+
+-Reading Files
+
+-Writing Files
+
+-Deleting Files
+
+-Working with Directories
+
+-Working with Paths
+
+-Command Line Arguments
+
+-Command Line Flags
+
+-Environment Variables
+
+-HTTP Clients
+
+-HTTP Servers
+
+-JSON
+
+-XML
+
+-CSV
+
+-Template
+
+-Websockets
+
+-Context
+
+-Top Packages
+  -"fmt" package
+    -Different functions for:
+      -Formatted Input and Output (I/O)
+        -Print Messages
+          -Println
+          -Printf
+           -Print
+        -Collect User Input
+            -Scanln
+            -Scanf
+            -Scan
+        -Write into a File
+        -Read from a File
+
