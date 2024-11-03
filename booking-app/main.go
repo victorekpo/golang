@@ -59,4 +59,18 @@ func main() {
 	// Print remaining tickets
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
+	// Lists, arrays, and slices
+	// Data structures to store collections of elements in a single variable
+	// Arrays are fixed size, slices are dynamic
+
+	// Arrays
+	//var bookings = [50]string{"Nana", "Nicole", "Peter"}
+	// We cannot mix types, it can only be of one type of data
+	// We can add elements up to the maximum size of 50
+	// We can start with an empty list also with
+	// var bookings = [50]string or var bookings [50]string{}
+
+	var bookings [50]string
+	bookings[0] = userName
+
 }
