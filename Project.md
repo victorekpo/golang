@@ -186,3 +186,75 @@ myvalidationapp/
 │       └── app.go
 ├── go.mod
 └── go.sum
+
+## Development
+There is a tool called air for Go that can automatically reload your application when you make changes to your code. It is similar to nodemon in Node.js.
+
+To install air, run the following command:
+
+```sh
+go install github.com/cosmtrek/air@latest
+```
+
+After installing air, you can create a configuration file named .air.toml in your project directory to customize the behavior of air. Here is an example configuration:
+
+```toml
+# .air.toml
+[build]
+  cmd = "go build -o ./tmp/main ."
+  bin = "./tmp/main"
+  full_bin = "APP_ENV=dev APP_USER=air ./tmp/main"
+  include_ext = ["go", "tpl", "tmpl", "html"]
+  exclude_dir = ["assets", "tmp", "vendor"]
+  exclude_file = ["*_test.go"]
+  exclude_regex = ["^/tmp/"]
+  delay = 1000 # ms
+  stop_on_error = true
+  kill_signal = "kill"
+  kill_timeout = 1000 # ms
+
+[log]
+  level = "debug"
+  color = true
+  timestamp = false
+
+[serve]
+  watch_dir = ["."]
+  watch_ext = ["go", "tpl", "tmpl", "html"]
+  ignore_dir = ["assets", "tmp", "vendor"]
+  ignore_file = ["*_test.go"]
+  ignore_regex = ["^/tmp/"]
+  bin = "./tmp/main"
+  cmd = "APP_ENV=dev APP_USER=air ./tmp/main"
+  delay = 1000 # ms
+  grace = 1000 # ms
+  kill_signal = "kill"
+  kill_timeout = 1000 # ms
+```
+
+To start your application with air, run the following command:
+
+```sh
+air
+```
+
+air will watch for changes in your Go files and automatically reload your application when changes are detected.
+
+air is a popular choice for live reloading in Go development, but there are other tools that the community also uses. Some alternatives include:  
+- reflex: A small tool to watch a directory and rerun a command when files change.
+- fresh: A command line tool to automatically reload your Go application when it changes.
+- realize: A Go build system with file watchers, live reload, and more.
+
+air:  
+Description: air is a live reloading tool for Go applications. It watches for changes in your Go files and automatically rebuilds and restarts your application.
+Best Use: Use air if you need a straightforward and easy-to-configure tool for live reloading during development. It is particularly useful for web applications and services where you need to see changes immediately.
+reflex:  
+Description: reflex is a small tool that watches a directory and reruns a command when files change. It is highly configurable and can be used for various tasks beyond just Go development.
+Best Use: Use reflex if you need a flexible and lightweight tool that can be configured to watch specific files or directories and run custom commands. It is suitable for projects where you need more control over what actions are taken on file changes.
+fresh:  
+Description: fresh is a command line tool that automatically reloads your Go application when it changes. It is simple to set up and use.
+Best Use: Use fresh if you want a minimalistic and easy-to-use tool for live reloading. It is ideal for small to medium-sized projects where you need quick feedback on code changes.
+realize:  
+Description: realize is a Go build system with file watchers, live reload, and more. It offers advanced features like task management and custom workflows.
+Best Use: Use realize if you need a more comprehensive build system with advanced features. It is suitable for larger projects where you need to manage complex build processes and workflows.
+Each tool has its own strengths, so you can choose the one that best fits your development workflow and project requirements.
