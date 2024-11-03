@@ -1,4 +1,134 @@
+Learning Go
+Workshop: Building a Todo application in Go using Cobra
+-Introduction to the Go Programming Language
+-CLI application design
+-Introduction to the Cobra CLI framework (used by Kubernetes, Docker, Hugo, etc)
 
+-GOPATH
+ -The Go toolset uses an environment variable called GOPATH to find & store Go source code.
+ -You can set GOPATH to anything you want, but its easier if its set in your home directory.
+
+GO ENV check
+-go env
+-Check for GOPATH="/Users/vic/go"
+-env | grep "PATH="
+-Check for PATH= (to include) ..:/Users/vic/go/bin:...
+
+GoLand IDE
+
+Windows
+setx GOPATH %USERPROFILE%\go
+
+
+-------------------------------------------------
+Project Steps
+-------------------------------------------------
+1. Initialize a Go module
+In the root of your project, run:
+go mod init <module_name>
+
+2.Install Cobra
+go get -u -v github.com/spf13/cobra@latest
+
+The go get command is used to download and install packages.
+
+
+3. Using Cobra
+import "github.com/spf13/cobra"
+
+Example of Using Cobra
+package main
+
+import (
+	"fmt"
+	"github.com/spf13/cobra"
+)
+
+func main() {
+	var rootCmd = &cobra.Command{
+		Use:   "app",
+		Short: "My Cobra Application",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("Hello, Cobra!")
+		},
+	}
+
+	rootCmd.Execute()
+}
+
+What is Cobra?
+Cobra is a library in Go used for building CLI applications. It was originally developed as the basis for the "kubectl" command-line tool used in Kubernetes, and has since become one of the most popular tools for creating CLIs in Go.
+
+With Cobra, developers can build apps that can process commands, flags, and arguments. Good for simple and complex CLI tools. Cobra works well with Go's 'flag' package but provides an easier and more scalable way to manage command-line tools.
+  -Commands: (can be nested) i.e. kubectl get pods
+  -Flags: i.e. kubectl get ds --all-namespaces
+  -Arguments: optional
+
+Supports customizable error handling and exit codes for more graceful command failures.
+
+You can add middleware that runs before or after commands, or even change how commands are parsed and executed.
+
+Integrates with Viper for Configuration.
+ -can handle configuration files, environment variables, and flags all in one place.
+
+Other Features
+Hooks (PreRun and PostRun)
+Command Auto-Completion
+Command Aliases
+Persistent Flags and Local Flags
+Custom Help and Usage Output
+Extensibility and Middleware
+
+Example of Using Cobra
+package main
+
+import (
+	"fmt"
+	"github.com/spf13/cobra"
+)
+
+func main() {
+	var rootCmd = &cobra.Command{
+		Use:   "app",
+		Short: "A CLI tool for managing files and users",
+	}
+
+	var userCmd = &cobra.Command{
+		Use:   "user",
+		Short: "Manage users",
+	}
+
+	var addUserCmd = &cobra.Command{
+		Use:   "add",
+		Short: "Add a new user",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("User added!")
+		},
+	}
+
+	var fileCmd = &cobra.Command{
+		Use:   "file",
+		Short: "Manage files",
+	}
+
+	var uploadFileCmd = &cobra.Command{
+		Use:   "upload",
+		Short: "Upload a file",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("File uploaded!")
+		},
+	}
+
+	// Create root command and add subcommands
+	userCmd.AddCommand(addUserCmd)
+	fileCmd.AddCommand(uploadFileCmd)
+	rootCmd.AddCommand(userCmd, fileCmd)
+
+	// Execute the root command
+	rootCmd.Execute()
+}
+
+-------------------------------------------------
 Our first program will print the classic “hello world” message. Here’s the full source code.
 
 
@@ -22,3 +152,9 @@ Go will infer the type of initialized variables.
 Variables declared without a corresponding initialization are zero-valued. For example, the zero value for an int is 0.
 The := syntax is shorthand for declaring and initializing a variable, e.g. for var f string = "apple" in this case. This syntax is only available inside functions. f := "apple"
 
+
+-------------------------------------------------
+Go is a statically typed language
+-You need to tell Go Compiler, the data type when declaring the variable
+-Type Inference: But Go can infer the type when you assign a value
+-More Robust, reduces the likelihood of errors
