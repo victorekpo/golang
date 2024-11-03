@@ -193,7 +193,7 @@ There is a tool called air for Go that can automatically reload your application
 To install air, run the following command:
 
 ```sh
-go install github.com/cosmtrek/air@latest
+go install github.com/air-verse/air@latest
 ```
 
 After installing air, you can create a configuration file named .air.toml in your project directory to customize the behavior of air. Here is an example configuration:
