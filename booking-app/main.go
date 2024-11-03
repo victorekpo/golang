@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func main() {
+	// We define variables and Go infers the types when we assign values
 	var conferenceName = "Go Conference"
 	const conferenceTickets = 50
 	var remainingTickets = 50
@@ -18,7 +19,13 @@ func main() {
 	fmt.Printf("Get your tickets here to attend the conference\n")
 
 	var userName string
-	// ask the user for their name
+	var userTickets int
+	// ask the user for their input
 	userName = "Tom"
-	fmt.Println(userName)
+	userTickets = 2
+	// Print the user input
+	fmt.Printf("User %v booked %v tickets.\n", userName, userTickets)
+	// Print out the types of variables
+	fmt.Printf("conferenceTickets is of type %T, remaining Tickets is %T, conferenceName is %T\n", conferenceTickets, remainingTickets, conferenceName)
+
 }

@@ -158,3 +158,32 @@ Go is a statically typed language
 -You need to tell Go Compiler, the data type when declaring the variable
 -Type Inference: But Go can infer the type when you assign a value
 -More Robust, reduces the likelihood of errors
+-Big advantage of Go is you get to discover mistakes at compile time, not just at runtime.
+-To create a variable and assign it a value, without using var, you can use the := operator.
+-This is called a short variable declaration.
+-It is shorthand for declaring and initializing a variable, e.g. for var f string = "apple" in this case. This syntax is only available inside functions. f := "apple"
+
+
+
+Data Types
+-Strings
+
+-Integer Types (can be signed or unsigned, with length of the integer)
+* uint - positive whole numbers
+* int - whole numbers (can be negative)
+    -uint8
+    -uint16
+    -uint32
+    -uint64
+    -int8
+    -int16
+    -int32
+    -int64
+
+-Floating Types
+* float - numbers that contain a decimal component (1.434, 421.6)
+* complex - numbers that contain a real and imaginary part
+    -float32
+    -float64
+    -complex64
+    -complex128
