@@ -295,3 +295,36 @@ Security:
 Follow security best practices. Regularly review dependencies for vulnerabilities and keep them up to date.
 By adhering to these practices, you can ensure that your Go projects are robust, maintainable, and scalable.
 
+One of the top linting tools for Go is golangci-lint. It is a fast and flexible linter that aggregates multiple linters into a single tool. Here’s how you can install and configure golangci-lint for your booking-app project:
+```sh
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+```
+Create a configuration file: Create a .golangci.yml file in the root of your booking-app project directory with the following content:  
+```yaml
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unused
+    - varcheck
+
+run:
+  timeout: 5m
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+```
+
+Usage
+Run golangci-lint:
+golangci-lint run
+
+

@@ -1,5 +1,5 @@
 [build]
-cmd = "ls && go build -o ./tmp/main.exe ."
+cmd = "ls && golangci-lint run && go build -o ./tmp/main.exe ."
 #bin = "./build/main.exe"
 #full_bin = "cmd /C \"set APP_ENV=dev && set APP_USER=air && ./build/main.exe\""
 #include_ext = ["go", "tpl", "tmpl", "html"]
