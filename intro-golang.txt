@@ -187,3 +187,18 @@ Data Types
     -float64
     -complex64
     -complex128
+
+
+"fmt" package
+-Different functions for:
+  -Formatted Input and Output (I/O)
+    -Print Messages
+      -Println
+      -Printf
+       -Print
+    -Collect User Input
+        -Scanln
+        -Scanf
+        -Scan
+    -Write into a File
+    -Read from a File
