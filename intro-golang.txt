@@ -201,6 +201,16 @@ More Topics
 -Pointers
 
 -Functions
+In Go, functions that are intended to be exported (i.e., accessible from other packages) should start with an uppercase letter. Functions that are intended to be unexported (i.e., only accessible within the same package) should start with a lowercase letter. This follows the Go convention for visibility:
+Exported function (accessible from other packages):
+func ExportedFunction() {
+    // Function implementation
+}
+Unexported function (only accessible within the same package):
+func unexportedFunction() {
+    // Function implementation
+}
+
 
 -Interfaces
 
@@ -295,3 +305,8 @@ More Topics
         -Write into a File
         -Read from a File
 
+-------------------------------------------------
+In Go, file names typically use snake_case, and variable names use camelCase. Here is an example:
+File name: custom_worker.go
+Variable name: customWorker
+This convention helps maintain consistency and readability across Go projects.

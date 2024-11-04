@@ -1,3 +1,16 @@
+Creating a struct with methods can be beneficial if you need to maintain state or encapsulate related data and behavior. This approach can make your code more organized and easier to manage, especially if the processing involves multiple steps or configurations.  On the other hand, if the processing is straightforward and stateless, utility functions might be sufficient and simpler to implement.  Consider the following points:  
+- Use a struct with methods if: 
+  - You need to maintain state or configuration.
+  - The processing logic is complex and involves multiple related operations.
+  - You want to encapsulate related data and behavior.
+- Use utility functions if:  
+  - The processing is simple and stateless.   
+  - You don't need to maintain any state or configuration.
+  - The functions are independent and don't share data.
+
+Ultimately, the choice depends on the complexity and requirements of your processing logic.
+
+
 ```go
 package main
 
