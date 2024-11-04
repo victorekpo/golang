@@ -1,14 +1,14 @@
 package queue
 
 import (
-	"batch-v1/internal/queueItem"
+	"batch-v1/internal/queue_item"
 	"batch-v1/internal/utils"
 	"fmt"
 	"strings"
 	"sync"
 )
 
-type QueueItem = queueItem.QueueItem
+type QueueItem = queue_item.QueueItem
 
 type Queue struct {
 	Items []*QueueItem

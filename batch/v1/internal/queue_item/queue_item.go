@@ -1,4 +1,4 @@
-package queueItem
+package queue_item
 
 import (
 	"fmt"

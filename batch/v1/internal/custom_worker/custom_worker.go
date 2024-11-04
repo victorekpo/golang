@@ -1,9 +1,9 @@
-package customWorker
+package custom_worker
 
 import (
 	"batch-v1/internal/config"
 	"batch-v1/internal/processor"
-	"batch-v1/internal/queueItem"
+	"batch-v1/internal/queue_item"
 	"batch-v1/internal/utils"
 	"fmt"
 	"sync"
@@ -11,7 +11,7 @@ import (
 )
 
 type WorkerStatus string
-type QueueItem = queueItem.QueueItem
+type QueueItem = queue_item.QueueItem
 
 const (
 	WorkerIdle WorkerStatus = "idle"

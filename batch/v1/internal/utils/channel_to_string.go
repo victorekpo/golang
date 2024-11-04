@@ -1,12 +1,12 @@
 package utils
 
 import (
-	"batch-v1/internal/queueItem"
+	"batch-v1/internal/queue_item"
 	"strings"
 	"time"
 )
 
-func ChannelToString(ch chan *queueItem.QueueItem) string {
+func ChannelToString(ch chan *queue_item.QueueItem) string {
 	var items []string
 	for {
 		select {
