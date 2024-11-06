@@ -1,23 +1,37 @@
 package utils
 
 import (
-	"batch-v1/internal/queue_item"
+	"batch-v1/internal/workers/queue_item"
 	"strings"
 	"time"
 )
 
+type QueueItem = queue_item.QueueItem
+
 func ChannelToString(ch chan *queue_item.QueueItem) string {
 	var items []string
+	timeout := time.After(100 * time.Millisecond)
+
 	for {
 		select {
 		case item := <-ch:
 			if item != nil {
 				items = append(items, item.String())
 			}
-		case <-time.After(100 * time.Millisecond):
+		case <-timeout:
 			return strings.Join(items, ", ")
+		default:
+			time.Sleep(10 * time.Millisecond)
 		}
 	}
+}
+
+func ConvertListToString(items []*QueueItem) string {
+	var itemStrings []string
+	for _, item := range items {
+		itemStrings = append(itemStrings, item.String())
+	}
+	return strings.Join(itemStrings, ", ")
 }
 
 /*

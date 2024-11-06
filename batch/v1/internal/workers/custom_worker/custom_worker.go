@@ -2,9 +2,10 @@ package custom_worker
 
 import (
 	"batch-v1/internal/config"
-	"batch-v1/internal/processor"
-	"batch-v1/internal/queue_item"
 	"batch-v1/internal/utils"
+	"batch-v1/internal/workers/processor"
+	"batch-v1/internal/workers/queue"
+	"batch-v1/internal/workers/queue_item"
 	"fmt"
 	"sync"
 	"time"
@@ -12,6 +13,7 @@ import (
 
 type WorkerStatus string
 type QueueItem = queue_item.QueueItem
+type Queue = queue.Queue
 
 const (
 	WorkerIdle WorkerStatus = "idle"
@@ -21,20 +23,18 @@ const (
 type CustomWorker struct {
 	ID         int
 	Status     WorkerStatus
-	Queue      chan *QueueItem
-	DLQ        chan *QueueItem
+	Queue      *Queue
 	mu         sync.Mutex
 	wg         *sync.WaitGroup
 	processor  *processor.Processor
 	MaxRetries int
 }
 
-func NewCustomWorker(id int, queue chan *QueueItem, dlq chan *QueueItem, wg *sync.WaitGroup, processor *processor.Processor) *CustomWorker {
+func NewCustomWorker(id int, queue *Queue, wg *sync.WaitGroup, processor *processor.Processor) *CustomWorker {
 	return &CustomWorker{
 		ID:         id,
 		Status:     WorkerIdle,
 		Queue:      queue,
-		DLQ:        dlq,
 		wg:         wg,
 		processor:  processor,
 		MaxRetries: config.MaxRetries,
@@ -42,12 +42,14 @@ func NewCustomWorker(id int, queue chan *QueueItem, dlq chan *QueueItem, wg *syn
 }
 
 func (w *CustomWorker) Start() {
-	for item := range w.Queue {
+	for item := range w.Queue.QueueChan {
+		// Increment the WaitGroup counter
+		w.wg.Add(1)
 		w.SetStatus(WorkerBusy)
 		// Process Item with retry handler
 		w.RetryHandler(func() error {
 			fmt.Printf("Worker #%v processing item %s\n", w.ID, item.Data)
-			return w.processor.ProcessItem(item)
+			return w.processor.ProcessItem(item, w.Queue)
 		}, item)
 		w.SetStatus(WorkerIdle)
 		w.wg.Done() // Decrement the WaitGroup counter after processing each item
@@ -64,7 +66,9 @@ func (w *CustomWorker) RetryHandler(action func() error, item *QueueItem) {
 		time.Sleep(utils.ExponentialBackoff(retries))
 	}
 	fmt.Printf("Failed to process item %s after %d attempts, sending to DLQ\n", item.Data, w.MaxRetries)
-	w.DLQ <- item
+	w.Queue.AddDLQ(item)
+	w.Queue.Remove(item)
+	// w.Queue.DLQChan <- item // no DLQ channel for now, just add to the list, then send back to queue channel to reprocess
 }
 
 func (w *CustomWorker) SetStatus(status WorkerStatus) {

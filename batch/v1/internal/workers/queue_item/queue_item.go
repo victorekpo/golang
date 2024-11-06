@@ -5,13 +5,17 @@ import (
 	"github.com/google/uuid"
 )
 
-type ItemStatus string
+type ItemStatus int
 
 const (
-	ItemPending    ItemStatus = "pending"
-	ItemProcessing ItemStatus = "processing"
-	ItemProcessed  ItemStatus = "processed"
+	ItemPending ItemStatus = iota
+	ItemProcessing
+	ItemProcessed
 )
+
+func (s ItemStatus) String() string {
+	return [...]string{"pending", "processing", "processed"}[s]
+}
 
 type QueueItem struct {
 	ID     string
@@ -28,5 +32,5 @@ func NewQueueItem(data interface{}) *QueueItem {
 }
 
 func (item *QueueItem) String() string {
-	return fmt.Sprintf("ID: %s Data: %s Status: %s", item.ID, item.Data, item.Status)
+	return fmt.Sprintf("Data: %s Status: %s", item.Data, item.Status)
 }

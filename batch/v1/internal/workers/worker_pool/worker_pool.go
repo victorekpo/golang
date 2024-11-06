@@ -1,10 +1,10 @@
 package worker_pool
 
 import (
-	"batch-v1/internal/custom_worker"
-	"batch-v1/internal/processor"
-	"batch-v1/internal/queue"
-	"batch-v1/internal/queue_item"
+	"batch-v1/internal/workers/custom_worker"
+	"batch-v1/internal/workers/processor"
+	"batch-v1/internal/workers/queue"
+	"batch-v1/internal/workers/queue_item"
 	"fmt"
 	"sync"
 )
@@ -16,25 +16,23 @@ type Queue = queue.Queue
 type WorkerPool struct {
 	Workers    []*CustomWorker
 	NumWorkers int
-	Queue      chan *QueueItem
-	DLQ        chan *QueueItem
+	Queue      *Queue
 	wg         *sync.WaitGroup
 }
 
-func NewWorkerPool(numWorkers int, queue *Queue) *WorkerPool {
+func NewWorkerPool(numWorkers int, queue *Queue, wg *sync.WaitGroup) *WorkerPool {
 	pool := &WorkerPool{
 		NumWorkers: numWorkers,
-		Queue:      queue.Queue,
-		DLQ:        queue.DLQ,
-		wg:         queue.Wg,
+		Queue:      queue,
+		wg:         wg,
 	}
 
 	// Create processor and share across workers
 	customProcessor := processor.NewProcessor("Custom Processor")
 	// Create workers
 	fmt.Printf("Creating %d workers\n", numWorkers)
-	for i := 0; i < numWorkers; i++ {
-		worker := custom_worker.NewCustomWorker(i, pool.Queue, pool.DLQ, pool.wg, customProcessor)
+	for i := 1; i <= numWorkers; i++ {
+		worker := custom_worker.NewCustomWorker(i, pool.Queue, pool.wg, customProcessor)
 		pool.Workers = append(pool.Workers, worker)
 		go worker.Start()
 	}

@@ -1,0 +1,9 @@
+services:
+  elasticmq:
+    image: softwaremill/elasticmq
+    ports:
+      - "9324:9324"
+    environment:
+      - ELASTICMQ_OPTS=-Dconfig.file=/opt/elasticmq.conf
+    volumes:
+      - ./elasticmq.conf:/opt/elasticmq.conf

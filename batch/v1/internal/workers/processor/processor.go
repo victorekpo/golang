@@ -2,7 +2,8 @@ package processor
 
 import (
 	"batch-v1/internal/config"
-	"batch-v1/internal/queue_item"
+	"batch-v1/internal/workers/queue"
+	"batch-v1/internal/workers/queue_item"
 	"fmt"
 	"time"
 )
@@ -17,7 +18,7 @@ func NewProcessor(description string) *Processor {
 	}
 }
 
-func (p *Processor) ProcessItem(item *queue_item.QueueItem) error {
+func (p *Processor) ProcessItem(item *queue_item.QueueItem, queue *queue.Queue) error {
 	// Process the item
 	fmt.Printf("Processing item: %s\n", item.Data)
 	// Simulate processing logic
@@ -27,7 +28,10 @@ func (p *Processor) ProcessItem(item *queue_item.QueueItem) error {
 	if item.Data == "error" {
 		return fmt.Errorf("failed to process item: %s", item.Data)
 	}
+
+	// Item Processed, remove from Queue
 	item.Status = queue_item.ItemProcessed
+	queue.Remove(item)
 	return nil
 }
 
